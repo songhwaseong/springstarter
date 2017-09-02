@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.HelloWorldMapper">
+	<select id="selectDual" resultType="java.lang.String">
+		SELECT SYSDATE FROM DUAL
+	</select>
+	<resultMap type="com.example.demo.dto.TestDto" id="testMap">
+		<result column="NO" property="no"/>
+		<result column="NAME" property="name"/>
+		<result column="TODAYDATE" property="todaydate"/>
+	</resultMap>
+	<select id="selectTestdto" resultMap="testMap">
+		SELECT NO, NAME, TODAYDATE FROM TEST ORDER BY NO ASC
+	</select>
+	<insert id="insertTestdto" parameterType="com.example.demo.dto.TestDto">
+		INSERT INTO TEST (NO, NAME, TODAYDATE) VALUES (TESTSEQ.NEXTVAL,'${name}',SYSDATE)
+	</insert>
+	<insert id="updateTestdto" parameterType="com.example.demo.dto.TestDto">
+		UPDATE TEST SET NAME = '${name}' WHERE NO = '${no}'
+	</insert>
+	<delete id="delTestdto" parameterType="String">
+		DELETE FROM TEST WHERE no = #{delno}
+	</delete>
+</mapper>
