@@ -32,7 +32,6 @@ public class HelloWorldController {
 		model.setViewName("body/body");
 		List<TestDto> testDto = hwService.selectTestdto();
 		model.addObject("test", testDto);
-		System.out.println("$$$$$$$$$$$$");
 		return model;
 	}
 	
