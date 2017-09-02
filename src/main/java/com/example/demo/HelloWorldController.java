@@ -24,6 +24,7 @@ public class HelloWorldController {
 		String a = hwService.selectDual();
 		a= "현재시간 : "+a;
 		model.addObject("sysdate", a);
+		System.out.println("$$$$$$$$$ekfefk");
 		return model;
 	}
 	
