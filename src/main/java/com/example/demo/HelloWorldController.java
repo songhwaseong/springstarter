@@ -28,9 +28,15 @@ public class HelloWorldController {
 	}
 	
 	@RequestMapping(value="/list")
-	public ModelAndView selectTestdto(ModelAndView model){
+	public ModelAndView selectTestdto(@RequestParam(value ="pageNo", required = false, defaultValue="0") int pageNo, 
+			ModelAndView model){
 		model.setViewName("body/list");
-		List<TestDto> testDto = hwService.selectTestdto();
+		pageNo = pageNo == 0 ? 1:pageNo;
+		List<TestDto> testDto = hwService.selectTestdto(pageNo);
+		if(testDto != null && testDto.size() >0) {
+			model.addObject("pagesu", ((TestDto)testDto.get(0)).getPagesu());
+		}
+		model.addObject("pageNo", pageNo);
 		model.addObject("test", testDto);
 		return model;
 	}
@@ -42,7 +48,7 @@ public class HelloWorldController {
 	}
 	
 	@RequestMapping(value="/insertRst")
-	public ModelAndView insertTestdto(@RequestParam("name") String name,
+	public ModelAndView insertTestdto(@RequestParam(value ="pageNo", required = false, defaultValue="0") int pageNo, @RequestParam("name") String name,
 			ModelAndView model){
 		model.setViewName("body/body");
 		TestDto testDto = new TestDto();
@@ -53,11 +59,11 @@ public class HelloWorldController {
 //			hwService.insertTestdto(testDto);
 //		}
 		hwService.insertTestdto(testDto);
-		return selectTestdto(model);
+		return selectTestdto(pageNo, model);
 	}
 	
 	@RequestMapping(value="/update")
-	public ModelAndView updateTestdto(@RequestParam("no") String no, @RequestParam("testName") String name,
+	public ModelAndView updateTestdto(@RequestParam(value ="pageNo", required = false, defaultValue="0") int pageNo, @RequestParam("no") String no, @RequestParam("testName") String name,
 			ModelAndView model){
 		model.setViewName("body/body");
 		TestDto testDto = new TestDto();
@@ -69,18 +75,18 @@ public class HelloWorldController {
 //			hwService.insertTestdto(testDto);
 //		}
 		hwService.updateTestdto(testDto);
-		return selectTestdto(model);
+		return selectTestdto(pageNo, model);
 	}
 	
 	
 	@RequestMapping(value="/delete")
-	public ModelAndView delTestdto(@RequestParam("no") String no, ModelAndView model){
+	public ModelAndView delTestdto(@RequestParam(value ="pageNo", required = false, defaultValue="0") int pageNo, @RequestParam("no") String no, ModelAndView model){
 		model.setViewName("body/body");
 		if(no == null || "".equals(no)) {
-			return selectTestdto(model);
+			return selectTestdto(pageNo, model);
 		}
 		hwService.delTestdto(no);
-		return selectTestdto(model);
+		return selectTestdto(pageNo, model);
 	}
 
 }

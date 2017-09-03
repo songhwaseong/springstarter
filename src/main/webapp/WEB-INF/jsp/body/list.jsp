@@ -14,6 +14,7 @@
 <input type="button" value="입력" onclick="javascript:goInsert();">
 <form name="formf" method="post">
 <input type="hidden" id="testNo" name="no">
+<input type="hidden" id="testNo" name="pageNo" value="${pageNo}">
 <input type="hidden" id="testName" name="testName">
 <div id="ins">
 	<table>
@@ -31,6 +32,25 @@
 			<td><input type="button" value="취소" onclick="javascript:goCencle('${dto.no}');"></td>
 		</tr>
 	</c:forEach>
+	</table>
+</div>
+<div>
+	<table>	
+		<tr>
+			<td>
+				<c:forEach var="i" begin="1" end="${pagesu}" step="1">
+					<c:set value="${pageNo}" var="pageNo"/>
+					<c:choose>
+						<c:when test="${i == pageNo}">
+							<b>${i}</b>
+						</c:when>
+						<c:otherwise>
+							<a href="/list?pageNo=${i}">${i}</a>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+			</td>
+		</tr>
 	</table>
 </div>
 </form>

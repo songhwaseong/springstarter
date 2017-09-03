@@ -8,7 +8,7 @@ public interface HelloWorldMapper extends SqlMapper{
 	
 	String selectDual();
 	
-	List<TestDto> selectTestdto();
+	List<TestDto> selectTestdto(int pageNo);
 	
 	void insertTestdto(TestDto testdto);
 	

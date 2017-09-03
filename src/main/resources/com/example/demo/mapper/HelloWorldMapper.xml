@@ -7,14 +7,27 @@
 	<resultMap type="com.example.demo.dto.TestDto" id="testMap">
 		<result column="NO" property="no"/>
 		<result column="NAME" property="name"/>
+		<result column="PAGESU" property="pagesu"/>
+		<result column="TOTCNT" property="totalcnt"/>
 		<result column="TODAYDATE" property="todaydate"/>
 	</resultMap>
-	<select id="selectTestdto" resultMap="testMap">
-		SELECT NO, NAME, TODAYDATE FROM TEST ORDER BY NO ASC
+	<select id="selectTestdto" parameterType="int" resultMap="testMap">
+		SELECT * 
+		  FROM (
+				SELECT A.*, 
+			           ROWNUM AS RNUM,
+			           CEIL((COUNT(*) OVER() )/ 5) AS PAGESU,
+			           FLOOR((ROWNUM-1)/5+1) AS PAGE,
+			           COUNT(*) OVER() AS TOTCNT 
+			      FROM (SELECT * FROM test ORDER BY NO DESC)  A
+			) WHERE PAGE = #{page}
 	</select>
 	<insert id="insertTestdto" parameterType="com.example.demo.dto.TestDto">
 		INSERT INTO TEST (NO, NAME, TODAYDATE) VALUES (TESTSEQ.NEXTVAL,'${name}',SYSDATE)
 	</insert>
+	<update id="updateTestdto" parameterType="com.example.demo.dto.TestDto">
+		UPDATE TEST SET NAME = '${name}' WHERE NO = '${no}'
+	</update>
 	<delete id="delTestdto" parameterType="String">
 		DELETE FROM TEST WHERE no = #{delno}
 	</delete>

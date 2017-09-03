@@ -17,8 +17,8 @@ public class HelloWorldDao {
 	public String selectDual() {
 		return hwMapper.selectDual();
 	}
-	public List<TestDto> selectTestdto() {
-		return hwMapper.selectTestdto();
+	public List<TestDto> selectTestdto(int pageNo) {
+		return hwMapper.selectTestdto(pageNo);
 	}
 	
 	public void insertTestdto(TestDto testDto) {

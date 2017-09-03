@@ -17,8 +17,8 @@ public class HelloWorldService {
 	public String selectDual() {
 		return hwDao.selectDual();
 	}
-	public List<TestDto> selectTestdto() {
-		return hwDao.selectTestdto();
+	public List<TestDto> selectTestdto(int pageNo) {
+		return hwDao.selectTestdto(pageNo);
 	}
 	public void insertTestdto(TestDto testDto) {
 		hwDao.insertTestdto(testDto);
