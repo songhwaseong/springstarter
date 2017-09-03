@@ -24,13 +24,12 @@ public class HelloWorldController {
 		String a = hwService.selectDual();
 		a= "현재시간 : "+a;
 		model.addObject("sysdate", a);
-		System.out.println("$$$$$$$$$ekfefk");
 		return model;
 	}
 	
 	@RequestMapping(value="/list")
 	public ModelAndView selectTestdto(ModelAndView model){
-		model.setViewName("body/body");
+		model.setViewName("body/list");
 		List<TestDto> testDto = hwService.selectTestdto();
 		model.addObject("test", testDto);
 		return model;
